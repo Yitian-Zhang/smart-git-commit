@@ -25,6 +25,15 @@ pip install .
 sgc --help
 ```
 
+### Option C: Install from GitHub Release
+
+You can install the latest release directly from GitHub:
+
+```bash
+# Replace v0.1.0 with the desired version
+pip install https://github.com/Yitian-Zhang/smart-git-commit/releases/download/v0.1.0/smart_git_commit-0.1.0-py3-none-any.whl
+```
+
 ## Quick Start
 
 1) Stage your changes:
@@ -131,3 +140,18 @@ Run `sgc --help` to see the full list. Common flags:
 uv python install 3.12
 uv run -p 3.12 pytest --cov=smart_git_commit
 ```
+
+## Release Process
+
+1. Update `version` in `pyproject.toml`.
+2. Create and push a git tag starting with `v` (e.g. `v0.1.0`).
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+GitHub Actions will automatically:
+1. Build the Python package (`.whl` and `.tar.gz`).
+2. Create a GitHub Release.
+3. Upload the artifacts.
