@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from urllib.parse import urlparse
+
 import httpx
 
 from smart_git_commit.config import LlmConfig
@@ -19,10 +21,26 @@ class ChatMessage:
 
 
 def _normalize_base_url(base_url: str) -> str:
+    """Normalize base URL.
+
+    Rules:
+        - If the URL has no path (e.g. https://api.openai.com), append `/v1`.
+        - If the URL already has a path (e.g. https://host/api/v3), keep it as-is.
+        - If the URL ends with `/v1`, keep it.
+
+    This keeps OpenAI convenience while supporting providers whose OpenAI-compatible
+    endpoint is not under `/v1`.
+    """
+
     base = base_url.strip().rstrip("/")
     if base.endswith("/v1"):
         return base
-    return f"{base}/v1"
+
+    parsed = urlparse(base)
+    path = (parsed.path or "").rstrip("/")
+    if path == "":
+        return f"{base}/v1"
+    return base
 
 
 class ChatCompletionsClient:
@@ -99,7 +117,16 @@ class ChatCompletionsClient:
                 detail = str(data.get("error") or data)
             except Exception:
                 detail = (resp.text or "").strip()
-            raise LlmRequestError(f"LLM request failed ({resp.status_code}): {detail}")
+
+            url = str(resp.request.url)
+            hint = (
+                "If you are using a non-OpenAI provider, ensure --base-url/SGC_BASE_URL points to the API prefix "
+                "that contains `/chat/completions`."
+            )
+            suffix = f" {detail}" if detail else ""
+            raise LlmRequestError(
+                f"LLM request failed ({resp.status_code}) at {url}:{suffix}\n{hint}"
+            )
 
         try:
             data = resp.json()
@@ -113,4 +140,3 @@ class ChatCompletionsClient:
             raise LlmRequestError("Empty response from LLM server.")
 
         return content.strip()
-

@@ -84,6 +84,11 @@ Then edit `.env`:
 SGC_API_KEY="your_key_here"
 SGC_BASE_URL="https://api.openai.com/v1"
 SGC_MODEL="gpt-4o-mini"
+
+# For some providers, the OpenAI-compatible endpoint may NOT be under /v1.
+# In that case, set SGC_BASE_URL to the prefix that contains /chat/completions.
+# Example:
+# SGC_BASE_URL="https://your-provider.example.com/api/v3"
 ```
 
 ### CLI flags
