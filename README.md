@@ -12,26 +12,37 @@ Smart Git Commit (SGC) is a CLI tool that generates a Conventional Commit / Sema
 
 ## Installation
 
-### Option A: Run with `uv` (recommended)
+### For Users
+
+**Option 1: Install from GitHub Release (Recommended)**
+
+```bash
+# Replace v0.1.2 with the desired version
+pip install https://github.com/Yitian-Zhang/smart-git-commit/releases/download/v0.1.2/smart_git_commit-0.1.2-py3-none-any.whl
+```
+
+**Option 2: Run with `uv`**
 
 ```bash
 uv run sgc --help
 ```
 
-### Option B: Install as a package
+### For Developers
+
+**Option 1: Install as a package**
 
 ```bash
 pip install .
 sgc --help
 ```
 
-### Option C: Install from GitHub Release
+**Option 2: Run directly from source**
 
-You can install the latest release directly from GitHub:
+You can run the CLI directly from the source code without installing:
 
 ```bash
-# Replace v0.1.2 with the desired version
-pip install https://github.com/Yitian-Zhang/smart-git-commit/releases/download/v0.1.2/smart_git_commit-0.1.2-py3-none-any.whl
+# Run with specific python version
+uv run -p 3.12 sgc --print-git-command
 ```
 
 ## Quick Start
@@ -60,6 +71,16 @@ sgc --base-url "https://api.openai.com" --model "gpt-4o-mini"
 
 ```bash
 sgc --print-git-command
+```
+
+5) Full example with custom parameters:
+
+```bash
+sgc --base-url "https://your-provider.example.com/api/v3" \
+    --api-key "YOUR_API_KEY" \
+    --model "YOUR_MODEL_NAME" \
+    --print-git-command \
+    --timeout-s 60
 ```
 
 ## Configuration
