@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import sys
-from typing import Annotated
+from typing import Annotated, Optional
 
 import typer
 from rich.console import Console
@@ -29,12 +29,12 @@ def _print_error(message: str) -> None:
 @app.callback(invoke_without_command=True)
 def main(
     ctx: typer.Context,
-    base_url: Annotated[str | None, typer.Option(help="OpenAI-compatible base URL.")] = None,
-    api_key: Annotated[str | None, typer.Option(help="API key.")] = None,
-    model: Annotated[str | None, typer.Option(help="Model name.")] = None,
-    timeout_s: Annotated[float | None, typer.Option(help="Request timeout in seconds.")] = None,
-    max_tokens: Annotated[int | None, typer.Option(help="Max output tokens.")] = None,
-    temperature: Annotated[float | None, typer.Option(help="Sampling temperature.")] = None,
+    base_url: Annotated[Optional[str], typer.Option(help="OpenAI-compatible base URL.")] = None,
+    api_key: Annotated[Optional[str], typer.Option(help="API key.")] = None,
+    model: Annotated[Optional[str], typer.Option(help="Model name.")] = None,
+    timeout_s: Annotated[Optional[float], typer.Option(help="Request timeout in seconds.")] = None,
+    max_tokens: Annotated[Optional[int], typer.Option(help="Max output tokens.")] = None,
+    temperature: Annotated[Optional[float], typer.Option(help="Sampling temperature.")] = None,
     max_diff_chars: Annotated[int, typer.Option(help="Max staged diff characters to send.")] = 8000,
     print_git_command: Annotated[bool, typer.Option(help="Print a ready-to-copy git command.")] = False,
 ) -> None:

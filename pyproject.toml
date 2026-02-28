@@ -1,6 +1,6 @@
 [project]
 name = "smart-git-commit"
-version = "0.1.1"
+version = "0.1.2"
 description = "Generate semantic git commit messages using an OpenAI-compatible Chat Completions API."
 requires-python = ">=3.10"
 license = { text = "MIT" }

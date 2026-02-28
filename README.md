@@ -30,8 +30,8 @@ sgc --help
 You can install the latest release directly from GitHub:
 
 ```bash
-# Replace v0.1.1 with the desired version
-pip install https://github.com/Yitian-Zhang/smart-git-commit/releases/download/v0.1.1/smart_git_commit-0.1.1-py3-none-any.whl
+# Replace v0.1.2 with the desired version
+pip install https://github.com/Yitian-Zhang/smart-git-commit/releases/download/v0.1.2/smart_git_commit-0.1.2-py3-none-any.whl
 ```
 
 ## Quick Start
