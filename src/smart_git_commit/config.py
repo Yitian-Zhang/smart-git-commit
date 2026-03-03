@@ -30,6 +30,7 @@ class LlmConfig:
     model: str
     timeout_s: float
     max_tokens: int
+    max_diff_chars: int
     temperature: float
 
 
@@ -139,6 +140,7 @@ def load_default_llm_config() -> LlmConfig:
     model = os.getenv("SGC_MODEL") or os.getenv("OPENAI_MODEL") or "gpt-4o-mini"
     timeout_s = float(os.getenv("SGC_TIMEOUT_S") or "15")
     max_tokens = int(os.getenv("SGC_MAX_TOKENS") or "120")
+    max_diff_chars = int(os.getenv("SGC_MAX_DIFF_CHARS") or "8000")
     temperature = float(os.getenv("SGC_TEMPERATURE") or "0.2")
     return LlmConfig(
         base_url=base_url,
@@ -146,5 +148,6 @@ def load_default_llm_config() -> LlmConfig:
         model=model,
         timeout_s=timeout_s,
         max_tokens=max_tokens,
+        max_diff_chars=max_diff_chars,
         temperature=temperature,
     )

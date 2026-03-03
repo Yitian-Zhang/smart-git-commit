@@ -35,7 +35,7 @@ def main(
     timeout_s: Annotated[Optional[float], typer.Option(help="Request timeout in seconds.")] = None,
     max_tokens: Annotated[Optional[int], typer.Option(help="Max output tokens.")] = None,
     temperature: Annotated[Optional[float], typer.Option(help="Sampling temperature.")] = None,
-    max_diff_chars: Annotated[int, typer.Option(help="Max staged diff characters to send.")] = 8000,
+    max_diff_chars: Annotated[Optional[int], typer.Option(help="Max staged diff characters to send.")] = None,
     print_git_command: Annotated[bool, typer.Option(help="Print a ready-to-copy git command.")] = False,
 ) -> None:
     """Generate a commit message from staged changes."""
@@ -55,6 +55,7 @@ def main(
         timeout_s=timeout_s if timeout_s is not None else default.timeout_s,
         max_tokens=max_tokens if max_tokens is not None else default.max_tokens,
         temperature=temperature if temperature is not None else default.temperature,
+        max_diff_chars=max_diff_chars if max_diff_chars is not None else default.max_diff_chars,
     )
 
     if not cfg.api_key:
@@ -65,7 +66,7 @@ def main(
 
     try:
         with Status("Collecting git context...", console=_console):
-            git_ctx = GitContextCollector().collect(max_diff_chars=max_diff_chars)
+            git_ctx = GitContextCollector().collect(max_diff_chars=cfg.max_diff_chars)
         with Status("Generating commit message...", console=_console):
             with ChatCompletionsClient.from_config(cfg) as client:
                 message = generate_commit_message(client=client, context=git_ctx, cfg=cfg)

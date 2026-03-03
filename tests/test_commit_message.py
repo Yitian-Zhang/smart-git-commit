@@ -27,6 +27,7 @@ def _cfg() -> LlmConfig:
         model="m",
         timeout_s=1,
         max_tokens=50,
+        max_diff_chars=100,
         temperature=0.2,
     )
 
