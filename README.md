@@ -17,8 +17,8 @@ Smart Git Commit (SGC) is a CLI tool that generates a Conventional Commit / Sema
 **Option 1: Install from GitHub Release (Recommended)**
 
 ```bash
-# Replace v0.1.2 with the desired version
-pip install https://github.com/Yitian-Zhang/smart-git-commit/releases/download/v0.1.2/smart_git_commit-0.1.2-py3-none-any.whl
+# Replace v0.1.3 with the desired version
+pip install https://github.com/Yitian-Zhang/smart-git-commit/releases/download/v0.1.3/smart_git_commit-0.1.3-py3-none-any.whl
 ```
 
 **Option 2: Run with `uv`**
